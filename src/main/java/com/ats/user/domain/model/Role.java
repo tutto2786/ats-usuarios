@@ -1,32 +1,52 @@
 package com.ats.user.domain.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
+import java.time.LocalDateTime;
+import java.util.HashSet;
 import java.util.Set;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
+@ToString(exclude = {"users", "permissions"})
 @Builder
-public class Role {
-    private Long id;
-    private String name;
-    private String description;
-    private Set<User> users;
-    private Set<Module> modules;
+@Getter
+@Setter
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 
-    public void addUser(User u){
+public class Role {
+    @EqualsAndHashCode.Include
+    Long id;
+    String name;
+    String description;
+    boolean active;
+    Long createdBy;
+    Long updatedBy;
+    boolean active;
+    LocalDateTime createdAt;
+    LocalDateTime updateAt;
+    Set<User> users = new HashSet<>();
+    Set<Permission> permissions = new HashSet<>();
+
+    public void addUser(User u) {
         users.add(u);
         u.getRoles().add(this);
     }
-    public void removeUser(User u){
+
+    public void removeUser(User u) {
         users.remove(u);
         u.getRoles().remove(this);
     }
-    public void addModule(Module m){ modules.add(m); m.setRole(this); }
+
+    public void addPermission(Permission p) {
+        permissions.add(p);
+        p.getRoles().add(this);
+    }
+
+    public void removePermission(Permission p) {
+        permissions.remove(p);
+        p.getRoles().remove(this);
+    }
 
 
 }

@@ -2,22 +2,34 @@ package com.ats.user.domain.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
+
 import lombok.NoArgsConstructor;
 
-import java.util.Objects;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
+
+import java.time.LocalDateTime;
+
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Data
+@Getter
+@Setter
+@ToString(exclude = "module")
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class Menu {
-     Long id;
-     String title;
-     String path;
 
-    private Module module; // N:1
-
-    @Override public boolean equals(Object o){ return (o instanceof Menu m) && Objects.equals(id,m.id); }
-    @Override public int hashCode(){ return Objects.hashCode(id); }
+    @EqualsAndHashCode.Include
+    Long id;
+    String title;
+    String path;
+    Module module;
+    Integer orderIndex;
+    String requiredPermissionCode;
+    boolean active;
+    LocalDateTime createAt;
+    LocalDateTime updateAt;
 }
+

@@ -1,3 +1,18 @@
 spring:
   application:
     name: user-services
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/ats-users
+    username: root
+    password: tuttodev27.GP
+
+    jpa:
+      hibernate:
+        dll-auto: update
+      show-sql: true
+    properties:
+      hibernates.format_sql: =true
+    hikari:
+      maximum-pool-size: 10
+      connection:

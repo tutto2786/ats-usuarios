@@ -3,23 +3,32 @@ package com.ats.user.domain.model;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@ToString(exclude = {"menus", "permissions"})
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class Module {
+    @EqualsAndHashCode.Include
     Long id;
-    String code;        // p.ej. "POSTULANTES"
+    String code;
     String name;
     String description;
+    LocalDateTime createdAt;
+    LocalDateTime updatedAt;
+    boolean active;
+    Long createdBy;
+    Long updatedBy;
 
-    private Role role;                          // 1:N desde Role
-    private Set<Menu> menus = new HashSet<>();  // 1:N
-    private Set<Permission> permissions = new HashSet<>(); // N:M vía permission_modules
+    Set<Menu> menus = new HashSet<>();  // 1:N
+    Set<Permission> permissions = new HashSet<>(); // N:M vía permission_modules
 
     public void addMenu(Menu menu) {
         menus.add(menu);
