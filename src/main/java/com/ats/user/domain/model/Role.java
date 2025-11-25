@@ -22,7 +22,6 @@ public class Role {
     boolean active;
     Long createdBy;
     Long updatedBy;
-    boolean active;
     LocalDateTime createdAt;
     LocalDateTime updateAt;
     Set<User> users = new HashSet<>();
